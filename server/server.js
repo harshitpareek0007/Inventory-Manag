@@ -71,9 +71,12 @@ app.post('/auth/login', async (req, res) => {
       subject: 'Your OTP Code',
       text: `OTP Verification\nYour OTP is: ${otp}`
     };
+     
 
     try {
+      
       await transporter.sendMail(mailOptions);
+   
     } catch (mailError) {
       console.error('Email sending failed:', mailError);
       return res.status(500).json({ message: 'Failed to send OTP' });
@@ -82,7 +85,7 @@ app.post('/auth/login', async (req, res) => {
     res.json({ message: 'OTP sent successfully', phoneOrEmail, otp });
   } catch (error) {
     console.error('Login error:', error);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Server error: ' + error.message });
   }
 });
 
