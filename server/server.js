@@ -78,7 +78,11 @@ app.post('/auth/login', async (req, res) => {
      await transporter.sendMail(mailOptions);
       res.json({ message: 'OTP sent successfully', phoneOrEmail, otp });
 
-   
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
   
 
 
