@@ -74,21 +74,13 @@ app.post('/auth/login', async (req, res) => {
     };
      
 
-    try {
-      
-      await transporter.sendMail(mailOptions);
-   
-    } catch (mailError) {
+     
      await transporter.sendMail(mailOptions);
       res.json({ message: 'OTP sent successfully', phoneOrEmail, otp });
-    }
 
-    res.json({ message: 'OTP sent successfully', phoneOrEmail, otp });
-  } catch (error) {
-    console.error('Login error:', error);
-    res.status(500).json({ message: 'Server error: ' + error.message });
-  }
-});
+   
+  
+
 
 app.post('/auth/verify-otp', async (req, res) => {
   try {
