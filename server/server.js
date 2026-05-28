@@ -74,23 +74,15 @@ app.post('/auth/login', async (req, res) => {
     };
      
 
-    try {
-      
-      await transporter.sendMail(mailOptions);
-   
-    } catch (mailError) {
-      console.error('Email sending failed, Render SMTP blocked. Falling back to 123456:', mailError);
+    
+
       
       // Fallback: Use a default OTP so the login flow isn't broken on Render
-      user.otp = '123456';
-      await user.save();
       
-      return res.json({ 
-        message: 'Email blocked on Render. Use test OTP: 123456', 
-        phoneOrEmail, 
-        otp: '123456' 
-      });
-    }
+       await transporter.sendMail(mailOptions);
+      
+      
+    
 
     res.json({ message: 'OTP sent successfully', phoneOrEmail, otp });
   } catch (error) {
