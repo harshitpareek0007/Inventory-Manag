@@ -74,15 +74,14 @@ app.post('/auth/login', async (req, res) => {
     };
      
 
-    
-
+    try {
       
-      // Fallback: Use a default OTP so the login flow isn't broken on Render
-      
-       await transporter.sendMail(mailOptions);
-      
-      
-    
+      await transporter.sendMail(mailOptions);
+   
+    } catch (mailError) {
+      console.error('Email sending failed:', mailError);
+      return res.status(500).json({ message: 'Failed to send OTP' });
+    }
 
     res.json({ message: 'OTP sent successfully', phoneOrEmail, otp });
   } catch (error) {
