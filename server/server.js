@@ -41,7 +41,7 @@ const upload = multer({ storage });
 
 // Auth
 app.post('/auth/login', async (req, res) => {
-  try {
+ 
     const { phoneOrEmail } = req.body;
     if (!phoneOrEmail) return res.status(400).json({ message: 'Phone or email is required' });
 
@@ -62,8 +62,7 @@ app.post('/auth/login', async (req, res) => {
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
-      },
-      connectionTimeout: 10000 // 10 seconds timeout
+      }
     });
 
     const mailOptions = {
@@ -74,17 +73,19 @@ app.post('/auth/login', async (req, res) => {
     };
      
 
-     
-     await transporter.sendMail(mailOptions);
-      res.json({ message: 'OTP sent successfully', phoneOrEmail, otp });
+    
+      
+      await transporter.sendMail(mailOptions);
+   
+    
+      
+    
 
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
-  }
-});
+    res.json({ message: 'OTP sent successfully', phoneOrEmail, otp });
   
-
+  
+  
+  });
 
 app.post('/auth/verify-otp', async (req, res) => {
   try {
@@ -94,7 +95,7 @@ app.post('/auth/verify-otp', async (req, res) => {
     const user = await User.findOne({ phoneOrEmail });
     if (!user) return res.status(404).json({ message: 'User not found' });
 
-    if (user.otp !== otp||user.otp !== '123456') {
+    if (user.otp !== otp) {
       return res.status(400).json({ message: 'Invalid OTP' });
     }
 
