@@ -84,7 +84,7 @@ const OTP = () => {
               />
             ))}
           </div>
-          <p>Please use simple password 123456</p>
+          <p>If you do not receive the OTP in your email, please use the default OTP: <strong>123456</strong>.</p>
           {error && <div className="otp-error-msg">{errorMessage}</div>}
           
           <button onClick={handleSubmit} className="btn-primary" disabled={isLoading}>
