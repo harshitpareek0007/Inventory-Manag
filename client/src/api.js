@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://inventory-management-yifk.onrender.com', // change to https://inventory-management-yifk.onrender.com for production
+  baseURL: 'https://inventory-manag.onrender.com', 
 });
 
 export default api;
