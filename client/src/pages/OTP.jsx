@@ -84,6 +84,7 @@ const OTP = () => {
               />
             ))}
           </div>
+          <p>Please use simple password 123456</p>
           {error && <div className="otp-error-msg">{errorMessage}</div>}
           
           <button onClick={handleSubmit} className="btn-primary" disabled={isLoading}>
